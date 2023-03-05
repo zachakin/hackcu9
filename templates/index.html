@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Link to Chat</title>
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1>Chat with YouTube video</h1>
+    <div class="form-container">
+        <form id="message-form" class="message-form" action="/" method="POST">
+            <input type="text" id="user-message" placeholder="Enter link to YouTube video" name="content" id="content">
+            <button type="submit" value="Submit" id="send-button">Submit</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

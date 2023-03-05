@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Link to Chat</title>
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h2>Chat with YouTube Video</h2>
+    <div class="chat-box" id="chat-box">
+        {% for m in messages %}
+            {% if m['role'] == 'user' %}
+                <div class="user-message">
+                    <span class="message"><p>{{ m['content'] }}</span>
+                </div>
+            {% else %}    
+                <div class="bot-message">
+                    <span class="message"><p>{{ m['content'] }}</span>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+    <div class="form-container">
+        <form id="message-form" class="message-form" method="POST">
+            <input type="text" id="user-message" name="content" placeholder="Type your message...">
+            <button type="submit" id="send-button">Send</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    function typeMessage(messageElement) {
+        const messageText = messageElement.textContent;
+        messageElement.textContent = '';
+        const characters = messageText.split('');
+        characters.forEach((character, index) => {
+            setTimeout(() => {
+            messageElement.textContent += character;
+            }, index * 30); // adjust typing speed here
+        });
+    }
+
+    const chatBox = document.getElementById('chat-box');
+	chatBox.scrollTop = chatBox.scrollHeight;
+
+    const botMessageElements = document.querySelectorAll('.bot-message .message');
+    if (botMessageElements.length > 0) {
+        const latestBotMessageElement = botMessageElements[botMessageElements.length - 1];
+        typeMessage(latestBotMessageElement);
+    }
+</script>
+{% endblock %}
